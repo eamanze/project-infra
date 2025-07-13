@@ -1,0 +1,5 @@
+.env.*
+.terraform.*
+terraform.*
+project-1-key.pem
+.terraform

@@ -153,10 +153,7 @@ resource "aws_launch_template" "prod_lnch_tmpl" {
   image_id      = data.aws_ami.ubuntu.id
   instance_type = "t2.medium"
   key_name  = aws_key_pair.key.key_name
-  user_data = base64encode(templatefile("./script.sh", {
-    nr-key               = "NRAK-NSLDF0Z1PM35SRE2MSGMGEZQ8ST",
-    nr-acct-id           = 3257472 
-  }))
+  user_data = base64encode(file("./script.sh"))
   block_device_mappings {
     device_name = "/dev/sda1"  # Typical root device name for Ubuntu AMIs
     ebs {

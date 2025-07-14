@@ -49,7 +49,7 @@ jobs:
               -var="backend_env=${{ secrets.BACKEND_ENV }}"
 
       - name: Terraform Apply
-        if: ${{ github.event.inputs.action == 'apply' }}
+        if: ${{ github.event.inputs.action == 'apply' || github.event_name == 'push' }}
         run: |
           terraform apply -auto-approve \
             -var="frontend_env=${{ secrets.FRONTEND_ENV }}" \

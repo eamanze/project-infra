@@ -11,9 +11,9 @@ on:
         options:
           - apply
           - destroy
-  push:
-    paths:
-      - 'main.tf'
+  # push:
+  #   paths:
+  #     - 'main.tf'
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
@@ -43,7 +43,10 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan
+        run: |
+          terraform plan \
+              -var="frontend_env=${{ secrets.FRONTEND_ENV }}" \
+              -var="backend_env=${{ secrets.BACKEND_ENV }}"
 
       - name: Terraform Apply
         if: ${{ github.event.inputs.action == 'apply' }}
@@ -54,6 +57,7 @@ jobs:
 
       - name: Terraform Destroy
         if: ${{ github.event.inputs.action == 'destroy' }}
-        run: terraform destroy -auto-approve \
-          -var="frontend_env=${{ secrets.FRONTEND_ENV }}" \
-          -var="backend_env=${{ secrets.BACKEND_ENV }}"
+        run: |
+          terraform destroy -auto-approve \
+            -var="frontend_env=${{ secrets.FRONTEND_ENV }}" \
+            -var="backend_env=${{ secrets.BACKEND_ENV }}"

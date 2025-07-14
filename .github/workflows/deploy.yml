@@ -11,6 +11,9 @@ on:
         options:
           - apply
           - destroy
+  push:
+    paths:
+      - 'main.tf'
 
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}
@@ -20,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: terraform # Change to your Terraform directory if needed
+        working-directory: .
 
     steps:
       - name: Checkout code
@@ -42,7 +45,7 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
 
-      - name: Terraform Apply or Destroy
+      - name: Terraform Apply
         if: ${{ github.event.inputs.action == 'apply' }}
         run: terraform apply -auto-approve
 

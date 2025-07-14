@@ -267,7 +267,7 @@ resource "aws_secretsmanager_secret" "frontend_env" {
 }
 resource "aws_secretsmanager_secret_version" "frontend_env" {
   secret_id     = aws_secretsmanager_secret.frontend_env.id
-  secret_string = file("${path.module}/.env.frontend")  # Reads local .env file
+  secret_string = var.frontend_env  # Reads local .env file
 }
 
 resource "aws_secretsmanager_secret" "backend_env" {
@@ -280,15 +280,18 @@ resource "aws_secretsmanager_secret" "backend_env" {
 }
 resource "aws_secretsmanager_secret_version" "backend_env" {
   secret_id     = aws_secretsmanager_secret.backend_env.id
-  secret_string = file("${path.module}/.env.backend")  # Reads local .env file
+  secret_string = var.backend_env   # Reads local .env file
 }
 
-output "frount_secret_arn" {
+output "front_secret_arn" {
   value       = aws_secretsmanager_secret.frontend_env.arn
   sensitive   = true
 }
 
-output "backebd_secret_arn" {
+output "backend_secret_arn" {
   value       = aws_secretsmanager_secret.backend_env.arn
   sensitive   = true
 }
+
+variable "frontend_env" { type = string }
+variable "backend_env" { type = string }

@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: terraform # Change to your Terraform directory if needed
+        working-directory: project-infra/terraform # Change to your Terraform directory if needed
 
     steps:
       - name: Checkout code

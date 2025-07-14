@@ -35,14 +35,3 @@ docker login --username eamanze --password-stdin <<EOF
 EOF
 # echo "$pass" | docker login -u "$user" --password-stdin
 cd /opt/app && docker-compose pull && docker-compose up -d
-
-
-
-# pull docker compose file from docker hub
-# curl -sSL https://raw.githubusercontent.com/Consultlawal/test1/master/docker-compose.yml -o docker-compose.yml
-
-
-
-
-# # # Execute the docker-compose file
-# docker-compose up -d
